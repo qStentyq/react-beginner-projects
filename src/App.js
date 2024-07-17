@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Block } from "./Block";
+import { BlockUSD } from "./BlockUSD";
 import "./index.scss";
+import { BlockOthers } from "./BlockOthers";
 
 function App() {
     const [blockValue, setBlockValue] = useState(0);
@@ -20,13 +21,13 @@ function App() {
     };
     return (
         <div className='App'>
-            <Block
-                value={blockValue}
-                onChangeValue={setBlockValue}
-                currency='USD'
-                onChangeCurrency={(cur) => console.log(cur)}
+            <BlockUSD value={blockValue} onChangeValue={setBlockValue} currency='USD' />
+            <BlockOthers
+                value={apiResponse[currency] * blockValue}
+                currency={currency}
+                onChangeCurrency={onChangeCurrency}
+                allCurencies={apiResponse}
             />
-            <Block value={apiResponse[currency] * blockValue} currency={currency} onChangeCurrency={onChangeCurrency} />
         </div>
     );
 }
